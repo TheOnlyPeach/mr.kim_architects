@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공포의 Mr.Kim 건축사무소</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #000;
+        color: #e2e8f0;
+        overflow: hidden;
+      }
+      h1, h2, h3, .serif {
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* 3D Scene Helpers */
+      .scene-container {
+        perspective: 1000px;
+        overflow: hidden;
+      }
+      .world-plane {
+        transform-style: preserve-3d;
+        transform: rotateX(45deg) rotateZ(0deg);
+        transform-origin: 50% 50%;
+      }
+      .billboard {
+        transform-style: preserve-3d;
+        /* Counter-rotate to face the camera */
+        transform: rotateX(-45deg) translateZ(20px); 
+      }
+      
+      /* Sparkle Animation */
+      @keyframes sparkle-anim {
+        0% { transform: scale(0) rotate(0deg); opacity: 1; }
+        50% { opacity: 1; }
+        100% { transform: scale(1.5) translate(var(--tx), var(--ty)) rotate(180deg); opacity: 0; }
+      }
+      .sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #fbbf24;
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        animation: sparkle-anim 0.8s ease-out forwards;
+      }
+
+      /* 3D Building CSS */
+      .building-scene {
+        perspective: 1200px;
+      }
+      .cube {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        transform-style: preserve-3d;
+        animation: rotate-building 10s infinite linear;
+      }
+      .cube-face {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 2px solid rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        backface-visibility: visible;
+      }
+      .face-front  { transform: rotateY(  0deg) translateZ(100px); }
+      .face-back   { transform: rotateY(180deg) translateZ(100px); }
+      .face-right  { transform: rotateY( 90deg) translateZ(100px); }
+      .face-left   { transform: rotateY(-90deg) translateZ(100px); }
+      .face-top    { transform: rotateX( 90deg) translateZ(100px); }
+      .face-bottom { transform: rotateX(-90deg) translateZ(100px); background: #333; }
+
+      @keyframes rotate-building {
+        0% { transform: rotateX(-15deg) rotateY(0deg); }
+        100% { transform: rotateX(-15deg) rotateY(360deg); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
